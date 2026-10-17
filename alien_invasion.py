@@ -5,6 +5,8 @@ from settings import Settings
 from ship import Ship
 from bullet import Bullet
 
+from alien import Alien
+
 class AlienInvasion:
 
     def __init__(self):
@@ -13,7 +15,7 @@ class AlienInvasion:
         # settings 
         self.settings = Settings()
 
-        # import bullet, create the bullet group
+        # create the bullet group
         self.bullets = pygame.sprite.Group() # [       ] group
 
         self.screen = pygame.display.set_mode((1200,800))
@@ -27,6 +29,31 @@ class AlienInvasion:
 
         # ship                
         self.ship = Ship(self)
+
+        # Aliens                           
+        self.aliens = pygame.sprite.Group()
+        self._create_fleet()
+
+    def _create_fleet(self):
+        alien = Alien(self)
+        alien_width, alien_height = alien.rect.size
+
+        current_x, current_y = alien_width, alien_height
+
+        while current_y < (self.settings.screen_height - 3*alien_height):
+            while current_x < (self.settings.screen_width - 2*alien_width):
+                self._create_aliens(current_x, current_y)
+                current_x += 2* alien_width
+
+            current_x = alien_width
+            current_y += 2 * alien_height
+
+    def _create_aliens(self,x_pos, y_pos):
+        new_alien = Alien(self)
+        new_alien.x = x_pos # 96
+        new_alien.rect.x = x_pos # 96
+        new_alien.rect.y = y_pos 
+        self.aliens.add(new_alien)
 
     def _check_events(self):
         """Respond to keypress and mouse events"""
@@ -70,6 +97,10 @@ class AlienInvasion:
             bullet.draw_bullet()
              
         self.ship.blitme()
+
+        # draw aliens                
+        self.aliens.draw(self.screen)
+        
         pygame.display.flip()
 
     def _update_bullets(self):
