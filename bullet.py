@@ -19,24 +19,24 @@ class Bullet(Sprite):
         self.ship = ai_game.ship
 
         # bullet's rect 
-        self.bullet_rect = pygame.Rect(0,0, 
+        self.rect = pygame.Rect(0,0, 
                                        self.settings.bullet_width, 
                                        self.settings.bullet_height)
 
         # place the bullet on the top of the ship
-        self.bullet_rect.midtop = self.ship.image_rect.midtop
+        self.rect.midtop = self.ship.image_rect.midtop
 
         # store the bullet's starting position
-        self.y = float(self.bullet_rect.y) 
+        self.y = float(self.rect.y) 
 
     def update(self):
         # make ships bullet go upwards
         self.y -=  self.settings.bullet_speed 
 
         # and make the bullet appear on screen 
-        self.bullet_rect.y = self.y 
+        self.rect.y = self.y 
 
     def draw_bullet(self):
-        pygame.draw.rect(self.screen, self.color, self.bullet_rect)
+        pygame.draw.rect(self.screen, self.color, self.rect)
 
 # main
