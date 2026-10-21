@@ -24,7 +24,7 @@ class Bullet(Sprite):
                                        self.settings.bullet_height)
 
         # place the bullet on the top of the ship
-        self.rect.midtop = self.ship.image_rect.midtop
+        self.rect.midtop = self.ship.rect.midtop
 
         # store the bullet's starting position
         self.y = float(self.rect.y) 

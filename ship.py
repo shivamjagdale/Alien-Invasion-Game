@@ -6,17 +6,17 @@ class Ship:
 
     def __init__(self, ai_game):
         self.screen = ai_game.screen 
-        self.screen_rect = ai_game.screen.get_rect()
+        self.screen_rect = ai_game.screen.get_rect() # The screen's rect
 
         # import settings 
-        self.settings = Settings()
+        self.settings = ai_game.settings
 
         # load the image 
         self.image = pygame.image.load("C:/Users/Shivam/AppData/Local/Programs/Microsoft VS Code/DurrrSpaceShip.bmp")
-        self.image_rect = self.image.get_rect() # get it's rect 
+        self.rect = self.image.get_rect() # get it's rect 
 
         # put the ship at the bottom of the screen
-        self.image_rect.midbottom = self.screen_rect.midbottom 
+        self.rect.midbottom = self.screen_rect.midbottom 
         
         # moving right 
         self.moving_right = False 
@@ -25,19 +25,24 @@ class Ship:
         self.moving_left = False 
 
         # Get the ship position exactly 
-        self.x = float(self.image_rect.x)
+        self.x = float(self.rect.x)
 
     def update(self):
-        if self.moving_right and self.image_rect.right < self.screen_rect.right:
+        if self.moving_right and self.rect.right < self.screen_rect.right:
             self.x += self.settings.ship_speed
 
-        if self.moving_left and self.image_rect.left > self.screen_rect.left:
+        if self.moving_left and self.rect.left > self.screen_rect.left:
             self.x -= self.settings.ship_speed
 
-        self.image_rect.x = self.x 
+        self.rect.x = self.x 
         
     # draw the ship on screen 
     def blitme(self):
-        self.screen.blit(self.image, self.image_rect)
+        self.screen.blit(self.image, self.rect)
+
+    def center_ship(self):
+        """It centers the ship"""
+        self.rect.midbottom = self.screen_rect.midbottom 
+        self.x = float(self.rect.x)
 
 # main
