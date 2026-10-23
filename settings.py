@@ -20,7 +20,7 @@ class Settings:
         # alien speed
         self.alien_speed = 1.0
         
-        self.fleet_drop_speed = 100 # how far down should the fleet move?
+        self.fleet_drop_speed = 10 # how far down should the fleet move?
 
         self.fleet_direction = 1 # which horizontal direction should the fleet move?
         
